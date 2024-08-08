@@ -9,7 +9,7 @@ func SetupRouter() *chi.Mux {
 	r := chi.NewRouter()
 
 	r.Get("/users", handler.GetUsers)
-	r.Post("/users", handler.CreateUser)
+	r.Post("/users", handler.RegisterUser)
 
 	return r
 }
