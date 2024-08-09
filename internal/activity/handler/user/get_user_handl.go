@@ -1,4 +1,4 @@
-package handler
+package user
 
 import (
 	"context"
@@ -9,7 +9,7 @@ import (
 )
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
-	rows, err := db.DB.Query(context.Background(), "SELECT user_id, username, email, create_date FROM \"user\"")
+	rows, err := db.DB.Query(context.Background(), "SELECT user_id, username, email, password_hash, create_date FROM person")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -19,7 +19,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 	var users []model.User
 	for rows.Next() {
 		var user model.User
-		if err := rows.Scan(&user.UserID, &user.Username, &user.Email, &user.CreateDate); err != nil {
+		if err := rows.Scan(&user.UserID, &user.Username, &user.Email, &user.PasswordHash, &user.CreateDate); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
