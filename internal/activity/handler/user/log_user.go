@@ -31,19 +31,16 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Сравнение введенного пароля с хэшированным паролем
 	if err := bcrypt.CompareHashAndPassword([]byte(user.PasswordHash), []byte(req.Password)); err != nil {
 		http.Error(w, "Invalid credentials", http.StatusUnauthorized)
 		return
 	}
 
-	// Генерация JWT
 	token, err := auth.GenerateJWT(user.UserID)
 	if err != nil {
 		http.Error(w, "Error generating token", http.StatusInternalServerError)
 		return
 	}
 
-	// Возвращаем токен пользователю
 	json.NewEncoder(w).Encode(map[string]string{"token": token})
 }

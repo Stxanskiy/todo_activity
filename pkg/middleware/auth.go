@@ -22,7 +22,6 @@ func JWTAuth(next http.Handler) http.Handler {
 			return
 		}
 
-		// Добавляем UserID в контекст запроса
 		ctx := context.WithValue(r.Context(), "userID", claims.UserID)
 
 		// Продолжаем выполнение с новым контекстом
