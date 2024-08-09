@@ -1,4 +1,4 @@
-create database todo_activity;
+
 
 
 CREATE TABLE person  (
