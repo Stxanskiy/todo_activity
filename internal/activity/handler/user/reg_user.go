@@ -23,7 +23,7 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) {
 	user.PasswordHash = hashedPassword
 
 	_, err = db.DB.Exec(context.Background(),
-		"INSERT INTO person (username, email, password_hash, create_date)",
+		"INSERT INTO person (username, email, password_hash, create_date) VALUES ($1, $2,$3, $4)",
 		user.Username, user.Email, user.PasswordHash, user.CreateDate)
 
 	if err != nil {
